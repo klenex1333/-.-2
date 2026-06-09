@@ -7,32 +7,26 @@
   
   </script>
   <style>
-    /* Фикс на случай, если CMS пытается спрятать интерфейс */
     body { background-color: #1e293b; margin: 0; padding: 0; }
-    #nc-root { min-height: 100vh; display: block !important; }
   </style>
 </head>
 <body>
-  <!-- Главный контейнер для админки -->
-  <div id="nc-root"></div>
 
   <script>
-    // Самая важная строчка: говорим системе, что мы настраиваем её вручную.
-    // Без этого флага Decap CMS выдает белый экран при ручном коде!
+    // Включаем режим ручной сборки полей
     window.CMS_MANUAL_INIT = true;
   </script>
 
-  <!-- Подключаем сам движок Decap CMS -->
+  <!-- Подключаем основной файл Decap CMS -->
   <script src="https://unpkg.com@^3.0.0/dist/decap-cms.js"></script>
   
   <script>
-    // Запуск панели управления с полной структурой данных
-    window.initCMS({
+    // Инициализируем CMS (вызываем правильную функцию init)
+    CMS.init({
       config: {
         backend: {
           name: "git-gateway",
-          branch: "main",
-          gateway_url: "https://resplendent-brigadeiros-961dd4.netlify.app/.netlify/identity"
+          branch: "main"
         },
         media_folder: "images",
         public_folder: "/images",
@@ -98,10 +92,6 @@
         ]
       }
     });
-            backend: {
-          name: "git-gateway",
-          branch: "main"
-        },
   </script>
 </body>
 </html>
