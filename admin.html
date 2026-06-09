@@ -4,94 +4,87 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Глобальная панель МС ГГКЖТ</title>
+  
+  </script>
 </head>
 <body style="background-color: #1e293b; margin: 0; padding: 0;">
 
-  <!-- Контейнер, куда админка гарантированно прорисуется -->
-  <div id="nc-root"></div>
-
-  <script>
-    // Говорим системе, что настройки лежат в коде JavaScript
-    window.CMS_MANUAL_INIT = true;
-  </script>
-
-  <!-- ИСПРАВЛЕНО: Подключаем официальный стабильный движок Decap CMS (Netlify CMS) -->
+  <!-- Скрипт самого движка админки (автоматическая инициализация) -->
   <script src="https://unpkg.com@^3.0.0/dist/decap-cms.js"></script>
-  
+
   <script>
-    // Принудительно стартуем админку
-    CMS.init({
-      config: {
-        backend: {
-          name: "git-gateway",
-          branch: "main",
-          // ИСПРАВЛЕНО: Привязываем админку конкретно к вашему работающему адресу
-          gateway_url: "https://netlify.app"
-        },
-        media_folder: "images",
-        public_folder: "/images",
-        collections: [
-          {
-            name: "global_data",
-            label: "Глобальный контент",
-            delete: false,
-            editor: { preview: false },
-            files: [
-              {
-                file: "data.json",
-                name: "site_database",
-                label: "База данных сайта",
-                fields: [
-                  { label: "Статус в шапке сайта", name: "status", widget: "string" },
-                  {
-                    label: "Все публикации",
-                    name: "posts",
-                    widget: "list",
-                    summary: "{{title}} [{{section}}]",
-                    fields: [
-                      { label: "Уникальный ID", name: "id", widget: "string" },
-                      {
-                        label: "Раздел сайта",
-                        name: "section",
-                        widget: "select",
-                        options: [
-                          { label: "Главная", value: "home" },
-                          { label: "Новости", value: "news" },
-                          { label: "Правовой сектор", value: "sector-legal" },
-                          { label: "Культурный сектор", value: "sector-culture" },
-                          { label: "Спортивный сектор", value: "sector-sport" },
-                          { label: "Информационный сектор", value: "sector-info" },
-                          { label: "Бытовой сектор", value: "sector-household" },
-                          { label: "Мероприятия", value: "events" },
-                          { label: "О нас", value: "about" }
-                        ]
-                      },
-                      { label: "Заголовок публикации", name: "title", widget: "string" },
-                      { label: "Текст публикации", name: "text", widget: "text" },
-                      { label: "Фото (Изображение)", name: "img", widget: "image", required: false },
-                      { label: "Дата публикации", name: "date", widget: "string" },
-                      { label: "Просмотры", name: "views", widget: "number", default: 0 }
-                    ]
-                  },
-                  {
-                    label: "Фоны секторов",
-                    name: "backgrounds",
-                    widget: "object",
-                    fields: [
-                      { label: "Правовой сектор", name: "sector-legal", widget: "image", required: false },
-                      { label: "Культурный сектор", name: "sector-culture", widget: "image", required: false },
-                      { label: "Спортивный сектор", name: "sector-sport", widget: "image", required: false },
-                      { label: "Информационный сектор", name: "sector-info", widget: "image", required: false },
-                      { label: "Бытовой сектор", name: "sector-household", widget: "image", required: false }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    });
+    // Создаем правильную конфигурацию без лишних внешних URL
+    var config = {
+      backend: {
+        name: "git-gateway",
+        branch: "main"
+      },
+      media_folder: "images",
+      public_folder: "/images",
+      collections: [
+        {
+          name: "global_data",
+          label: "Глобальный контент",
+          delete: false,
+          editor: { preview: false },
+          files: [
+            {
+              file: "data.json",
+              name: "site_database",
+              label: "База данных сайта",
+              fields: [
+                { label: "Статус в шапке сайта", name: "status", widget: "string" },
+                {
+                  label: "Все публикации",
+                  name: "posts",
+                  widget: "list",
+                  summary: "{{title}} [{{section}}]",
+                  fields: [
+                    { label: "Уникальный ID", name: "id", widget: "string" },
+                    {
+                      label: "Раздел сайта",
+                      name: "section",
+                      widget: "select",
+                      options: [
+                        { label: "Главная", value: "home" },
+                        { label: "Новости", value: "news" },
+                        { label: "Правовой сектор", value: "sector-legal" },
+                        { label: "Культурный сектор", value: "sector-culture" },
+                        { label: "Спортивный сектор", value: "sector-sport" },
+                        { label: "Информационный сектор", value: "sector-info" },
+                        { label: "Бытовой сектор", value: "sector-household" },
+                        { label: "Мероприятия", value: "events" },
+                        { label: "О нас", value: "about" }
+                      ]
+                    },
+                    { label: "Заголовок публикации", name: "title", widget: "string" },
+                    { label: "Текст публикации", name: "text", widget: "text" },
+                    { label: "Фото (Изображение)", name: "img", widget: "image", required: false },
+                    { label: "Дата публикации", name: "date", widget: "string" },
+                    { label: "Просмотры", name: "views", widget: "number", default: 0 }
+                  ]
+                },
+                {
+                  label: "Фоны секторов",
+                  name: "backgrounds",
+                  widget: "object",
+                  fields: [
+                    { label: "Правовой сектор", name: "sector-legal", widget: "image", required: false },
+                    { label: "Культурный сектор", name: "sector-culture", widget: "image", required: false },
+                    { label: "Спортивный сектор", name: "sector-sport", widget: "image", required: false },
+                    { label: "Информационный сектор", name: "sector-info", widget: "image", required: false },
+                    { label: "Бытовой сектор", name: "sector-household", widget: "image", required: false }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    };
+
+    // Передаем конфигурацию движку напрямую при его готовности
+    window.initCMS({ config: config });
   </script>
 </body>
 </html>
