@@ -7,23 +7,28 @@
   
   </script>
 </head>
-<body>
+<body style="background-color: #1e293b; margin: 0; padding: 0;">
+
+  <!-- Контейнер, куда админка гарантированно прорисуется -->
+  <div id="nc-root"></div>
 
   <script>
-    // 1. Говорим системе, что настройки лежат прямо здесь в коде JavaScript
+    // Говорим системе, что настройки лежат в коде JavaScript
     window.CMS_MANUAL_INIT = true;
   </script>
 
-  <!-- 2. Загружаем официальный движок админки -->
-  <script src="https://unpkg.com@^3.0.0/dist/decap-cms.js"></script>
+  <!-- Подключаем стабильный движок админки через супернадежный CDN от Cloudflare -->
+  <script src="https://cloudflare.com"></script>
   
   <script>
-    // 3. Принудительно запускаем прорисовку формы авторизации
+    // Принудительно стартуем админку
     CMS.init({
       config: {
         backend: {
           name: "git-gateway",
-          branch: "main"
+          branch: "main",
+          // Жестко привязываем админку к твоему хостингу, чтобы убрать белый экран
+          gateway_url: "https://netlify.app"
         },
         media_folder: "images",
         public_folder: "/images",
